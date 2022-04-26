@@ -4,5 +4,10 @@
   "main": "index.js",
   "repository": "git@github.com:matheusAlvarenga/js-dungeons.git",
   "author": "matheusAlvarenga <matheus.alvarenga@natahouse.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
 }
