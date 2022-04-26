@@ -1,0 +1,8 @@
+{
+  "name": "js-dungeons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:matheusAlvarenga/js-dungeons.git",
+  "author": "matheusAlvarenga <matheus.alvarenga@natahouse.com>",
+  "license": "MIT"
+}
