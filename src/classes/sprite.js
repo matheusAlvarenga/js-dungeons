@@ -1,14 +1,14 @@
 export class Sprite {
-  constructor({ context, position, images, size }) {
+  constructor({ context, position, image, size }) {
     this.context = context;
     this.position = position;
-    this.images = images;
+    this.image = image;
     this.size = size;
   }
 
   draw() {
     this.context.drawImage(
-      this.images[0],
+      this.image,
       this.position.x,
       this.position.y,
       this.size.width,
