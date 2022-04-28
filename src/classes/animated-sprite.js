@@ -1,7 +1,18 @@
 import { Sprite } from "./sprite.js";
 
 export class AnimatedSprite {
-  constructor({ context, position, actualState, allStates, size, hold = 10 }) {
+  constructor({
+    context,
+    position,
+    actualState,
+    allStates,
+    size,
+    hold = 10,
+    rotation,
+    offset = { x: 0, y: 0 },
+  }) {
+    this.rotation = rotation;
+    this.offset = offset;
     this.actualStateIndex = actualState;
     this.allStates = allStates;
     this.frames = allStates[actualState].length;
@@ -15,12 +26,24 @@ export class AnimatedSprite {
       position,
       image: this.actualImage,
       size,
+      rotation: this.rotation,
+      offset: this.offset,
     });
   }
 
   draw() {
     this.updateImage();
+    this.updateRotation();
+    this.updateOffset();
     this.sprite.draw();
+  }
+
+  updateOffset() {
+    this.sprite.offset = this.offset;
+  }
+
+  updateRotation() {
+    this.sprite.rotation = this.rotation;
   }
 
   updateImage() {
