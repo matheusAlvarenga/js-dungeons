@@ -27,8 +27,19 @@ playerImageRun4.src = "assets/player/run_4.png";
 const bowImage = new Image();
 bowImage.src = "assets/bow/idle.png";
 
+const bowImageShoot1 = new Image();
+bowImageShoot1.src = "assets/bow/shoot_1.png";
+
+const bowImageShoot2 = new Image();
+bowImageShoot2.src = "assets/bow/shoot_2.png";
+
+const bowImageShoot3 = new Image();
+bowImageShoot3.src = "assets/bow/shoot_3.png";
+
 export class Player {
   isRunning = false;
+
+  isShooting = false;
 
   keys = {
     w: {
@@ -41,6 +52,9 @@ export class Player {
       pressed: false,
     },
     d: {
+      pressed: false,
+    },
+    mouse: {
       pressed: false,
     },
   };
@@ -77,6 +91,7 @@ export class Player {
       actualState: "idle",
       allStates: {
         idle: [bowImage],
+        shooting: [bowImage, bowImageShoot1, bowImageShoot2, bowImageShoot3],
       },
       size: {
         width: 40,
@@ -113,7 +128,11 @@ export class Player {
       this.sprite.changeState("idle");
     }
 
-    this.sprite.draw();
+    if (this.isShooting) {
+      this.bow.changeState("shooting");
+    } else {
+      this.bow.changeState("idle");
+    }
 
     this.bow.rotation =
       Math.atan2(
@@ -121,5 +140,6 @@ export class Player {
         -(this.mouse.y - this.position.y)
       ) - 1.4;
     this.bow.draw();
+    this.sprite.draw();
   }
 }

@@ -23,6 +23,11 @@ document.addEventListener("mousemove", (e) => {
   player.mouse = mouseEvents(canvas, e);
 });
 
+window.addEventListener("mousedown", () => {
+  player.isShooting = true;
+  player.keys.mouse.pressed = true;
+});
+
 window.addEventListener("keydown", (event) => {
   // eslint-disable-next-line default-case
   switch (event.key) {
