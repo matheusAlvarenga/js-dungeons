@@ -28,6 +28,11 @@ window.addEventListener("mousedown", () => {
   player.keys.mouse.pressed = true;
 });
 
+window.addEventListener("mouseup", () => {
+  player.isShooting = false;
+  player.keys.mouse.pressed = false;
+});
+
 window.addEventListener("keydown", (event) => {
   // eslint-disable-next-line default-case
   switch (event.key) {

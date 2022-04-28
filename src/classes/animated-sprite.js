@@ -10,7 +10,9 @@ export class AnimatedSprite {
     hold = 10,
     rotation,
     offset = { x: 0, y: 0 },
+    oneTime = () => {},
   }) {
+    this.oneTime = oneTime;
     this.rotation = rotation;
     this.offset = offset;
     this.actualStateIndex = actualState;
@@ -50,6 +52,7 @@ export class AnimatedSprite {
     if (this.actualFrame < this.totalFrames - 1) {
       this.actualFrame += 1;
     } else {
+      this.oneTime(this.actualStateIndex);
       this.actualFrame = 0;
     }
     this.actualImage =

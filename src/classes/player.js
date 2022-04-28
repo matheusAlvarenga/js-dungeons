@@ -102,6 +102,7 @@ export class Player {
         x: 25,
         y: 20,
       },
+      oneTime: this.shooting,
     });
   }
 
@@ -141,5 +142,12 @@ export class Player {
       ) - 1.4;
     this.bow.draw();
     this.sprite.draw();
+  }
+
+  shooting(state) {
+    if (state === "shooting") {
+      console.log("shot");
+    }
+    this.changeState("idle");
   }
 }
