@@ -24,6 +24,9 @@ playerImageRun3.src = "assets/player/run_3.png";
 const playerImageRun4 = new Image();
 playerImageRun4.src = "assets/player/run_4.png";
 
+const bowImage = new Image();
+bowImage.src = "assets/bow/idle.png";
+
 export class Player {
   isRunning = false;
 
@@ -40,6 +43,11 @@ export class Player {
     d: {
       pressed: false,
     },
+  };
+
+  mouse = {
+    x: 0,
+    y: 0,
   };
 
   constructor({ context, position }) {
@@ -61,6 +69,23 @@ export class Player {
       size: {
         width: 46,
         height: 80,
+      },
+    });
+    this.bow = new AnimatedSprite({
+      context,
+      position,
+      actualState: "idle",
+      allStates: {
+        idle: [bowImage],
+      },
+      size: {
+        width: 40,
+        height: 40,
+      },
+      rotation: 0,
+      offset: {
+        x: 25,
+        y: 20,
       },
     });
   }
@@ -89,5 +114,12 @@ export class Player {
     }
 
     this.sprite.draw();
+
+    this.bow.rotation =
+      Math.atan2(
+        this.mouse.x - this.position.x,
+        -(this.mouse.y - this.position.y)
+      ) - 1.4;
+    this.bow.draw();
   }
 }

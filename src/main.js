@@ -1,4 +1,5 @@
 import { Player } from "./classes/player.js";
+import { mouseEvents } from "./utils/mouse.js";
 
 const canvas = document.getElementById("main-canvas");
 const context = canvas.getContext("2d");
@@ -17,6 +18,10 @@ function animate() {
   player.draw();
 }
 animate();
+
+document.addEventListener("mousemove", (e) => {
+  player.mouse = mouseEvents(canvas, e);
+});
 
 window.addEventListener("keydown", (event) => {
   // eslint-disable-next-line default-case
