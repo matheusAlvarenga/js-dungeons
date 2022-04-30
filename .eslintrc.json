@@ -17,6 +17,8 @@
     "rules": {
         "prettier/prettier": "error",
         "import/prefer-default-export": "off",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "class-methods-use-this": "off",
+        "default-case": "off"
     }
 }

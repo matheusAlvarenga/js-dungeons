@@ -31,10 +31,10 @@ export class AnimatedSprite extends Sprite {
 
     this.image = this.animationFrames[this.frames.val];
 
-    this.frames.elapsed++;
+    this.frames.elapsed += 1;
 
     if (this.frames.elapsed % this.frames.hold === 0) {
-      if (this.frames.val < this.frames.totalFrames - 1) this.frames.val++;
+      if (this.frames.val < this.frames.totalFrames - 1) this.frames.val += 1;
       else this.frames.val = 0;
     }
   }
