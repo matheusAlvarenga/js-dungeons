@@ -22,8 +22,12 @@ export class AnimatedSprite extends Sprite {
     };
   }
 
+  update() {}
+
   preDraw() {
     if (!this.animate) return;
+
+    this.update();
 
     this.image = this.animationFrames[this.frames.val];
 
