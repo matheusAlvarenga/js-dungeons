@@ -1,4 +1,5 @@
 import { Actor } from "./actor.js";
+import playerData from "../data/player.js";
 
 export class Player extends Actor {
   isRunning = false;
@@ -22,7 +23,15 @@ export class Player extends Actor {
   };
 
   constructor({ ...props }) {
-    super(props);
+    super({
+      states: playerData.animationFrames,
+      defaultState: "idle",
+      size: {
+        height: 80,
+        width: 46,
+      },
+      ...props,
+    });
 
     this.startKeyboardEvent();
   }
