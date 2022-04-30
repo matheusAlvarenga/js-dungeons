@@ -7,10 +7,12 @@ export class AnimatedSprite extends Sprite {
     position,
     size,
     rotation = 0,
+    animate = true,
     ...props
   }) {
     super({ context, position, size, rotation, ...props });
 
+    this.animate = animate;
     this.animationFrames = animationFrames;
     this.frames = {
       totalFrames: animationFrames.length,
@@ -21,6 +23,8 @@ export class AnimatedSprite extends Sprite {
   }
 
   preDraw() {
+    if (!this.animate) return;
+
     this.image = this.animationFrames[this.frames.val];
 
     this.frames.elapsed++;
