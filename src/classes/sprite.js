@@ -1,5 +1,12 @@
 export class Sprite {
-  constructor({ context, position, image, size, rotation = 0, offset }) {
+  constructor({
+    context,
+    position,
+    image,
+    size,
+    rotation = 0,
+    offset = { x: 0, y: 0 },
+  }) {
     this.context = context;
     this.position = position;
     this.image = image;
@@ -8,8 +15,14 @@ export class Sprite {
     this.offset = offset;
   }
 
+  preDraw() {}
+
+  postDraw() {}
+
   draw() {
     this.context.save();
+
+    this.preDraw();
 
     this.context.translate(
       this.position.x + this.offset.x,
@@ -24,6 +37,8 @@ export class Sprite {
       this.size.width,
       this.size.height
     );
+
+    this.postDraw();
 
     this.context.restore();
   }
