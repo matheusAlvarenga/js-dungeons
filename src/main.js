@@ -4,6 +4,7 @@ const canvas = document.getElementById("main-canvas");
 const context = canvas.getContext("2d");
 
 const player = new Player({
+  canvas,
   context,
   position: {
     x: 10,
