@@ -1,5 +1,9 @@
 import { Actor } from "./actor.js";
 import playerData from "../data/player.js";
+import { Sprite } from "./sprite.js";
+
+const bow = new Image();
+bow.src = "assets/bow/idle.png";
 
 export class Player extends Actor {
   isRunning = false;
@@ -33,12 +37,27 @@ export class Player extends Actor {
       ...props,
     });
 
+    this.bow = new Sprite({
+      context: props.context,
+      image: bow,
+      position: props.position,
+      size: {
+        width: 40,
+        height: 40,
+      },
+      offset: {
+        x: 24,
+        y: 18,
+      },
+    });
+
     this.startKeyboardEvent();
   }
 
   update() {
     this.updatePosition();
     this.updateState();
+    this.bow.draw();
   }
 
   updateState() {
