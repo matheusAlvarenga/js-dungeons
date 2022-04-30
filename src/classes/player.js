@@ -28,6 +28,19 @@ export class Player extends Actor {
   }
 
   update() {
+    this.updatePosition();
+    this.updateState();
+  }
+
+  updateState() {
+    if (this.isRunning) {
+      this.changeState("run");
+    } else {
+      this.changeState("idle");
+    }
+  }
+
+  updatePosition() {
     if (this.keys.w.pressed) {
       this.position.y -= 3;
     }
@@ -42,12 +55,6 @@ export class Player extends Actor {
 
     if (this.keys.d.pressed) {
       this.position.x += 3;
-    }
-
-    if (this.isRunning) {
-      this.changeState("run");
-    } else {
-      this.changeState("idle");
     }
   }
 
