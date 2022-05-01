@@ -1,4 +1,5 @@
 import { Actor } from "./actor.js";
+import { Projectile } from './projectile.js'
 import bowData from '../data/bow.js'
 import { mouseEvents } from "../utils/mouse.js";
 
@@ -9,6 +10,8 @@ export class Bow extends Actor {
     x: 0,
     y: 0,
   };
+
+  arrows = []
 
   constructor({canvas, ...props}) {
     super({
@@ -30,11 +33,20 @@ export class Bow extends Actor {
   update() {
     this.updateRotation()
     this.updateState()
+    this.drawArrows()
+  }
+
+  drawArrows() {
+    this.arrows.forEach((arrow) => arrow.draw())
   }
 
   postLoop() {
     if(this.actualState === 'shoot') {
-      console.log('shot');
+      console.log(this.arrows);
+      this.arrows.push(new Projectile({
+        context: this.context,
+        position: this.mouse
+      }))
       this.isShooting = false
       this.changeState('idle')
     }
