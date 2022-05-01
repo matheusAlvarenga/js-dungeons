@@ -1,5 +1,6 @@
 import { Actor } from "./actor.js";
-import bowData from '../data/bow.js'
+import { Projectile } from "./projectile.js";
+import bowData from "../data/bow.js";
 import { mouseEvents } from "../utils/mouse.js";
 
 export class Bow extends Actor {
@@ -10,7 +11,9 @@ export class Bow extends Actor {
     y: 0,
   };
 
-  constructor({canvas, ...props}) {
+  arrows = [];
+
+  constructor({ canvas, ...props }) {
     super({
       states: bowData.animationFrames,
       defaultState: "idle",
@@ -18,25 +21,35 @@ export class Bow extends Actor {
         width: 40,
         height: 40,
       },
-      ...props
-    })
+      ...props,
+    });
 
-    this.frames.hold = 25
+    this.frames.hold = 25;
 
-    this.canvas = canvas
-    this.startMouseEvent()
+    this.canvas = canvas;
+    this.startMouseEvent();
   }
 
   update() {
-    this.updateRotation()
-    this.updateState()
+    this.updateRotation();
+    this.updateState();
+    this.drawArrows();
+  }
+
+  drawArrows() {
+    this.arrows.forEach((arrow) => arrow.draw());
   }
 
   postLoop() {
-    if(this.actualState === 'shoot') {
-      console.log('shot');
-      this.isShooting = false
-      this.changeState('idle')
+    if (this.actualState === "shoot") {
+      this.arrows.push(
+        new Projectile({
+          context: this.context,
+          position: this.mouse,
+        })
+      );
+      this.isShooting = false;
+      this.changeState("idle");
     }
   }
 
@@ -55,12 +68,12 @@ export class Bow extends Actor {
   }
 
   startMouseEvent() {
-    window.addEventListener("mousedown", (e) => {
-      this.isShooting = true
+    window.addEventListener("mousedown", () => {
+      this.isShooting = true;
     });
 
-    window.addEventListener("mouseup", (e) => {
-      this.isShooting = false
+    window.addEventListener("mouseup", () => {
+      this.isShooting = false;
     });
 
     window.addEventListener("mousemove", (e) => {
