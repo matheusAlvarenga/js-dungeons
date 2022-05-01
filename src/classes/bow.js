@@ -21,12 +21,29 @@ export class Bow extends Actor {
       ...props
     })
 
+    this.frames.hold = 25
+
     this.canvas = canvas
     this.startMouseEvent()
   }
 
   update() {
     this.updateRotation()
+    this.updateState()
+  }
+
+  postLoop() {
+    if(this.actualState === 'shoot') {
+      console.log('shot');
+      this.isShooting = false
+      this.changeState('idle')
+    }
+  }
+
+  updateState() {
+    if (this.isShooting) {
+      this.changeState("shoot");
+    }
   }
 
   updateRotation() {
