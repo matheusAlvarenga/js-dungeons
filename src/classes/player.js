@@ -1,15 +1,9 @@
 import { Actor } from "./actor.js";
 import playerData from "../data/player.js";
-import { Sprite } from "./sprite.js";
-import { mouseEvents } from "../utils/mouse.js";
-
-const bow = new Image();
-bow.src = "assets/bow/idle.png";
+import { Bow } from "./bow.js";
 
 export class Player extends Actor {
   isRunning = false;
-
-  isShooting = false;
 
   keys = {
     w: {
@@ -23,15 +17,7 @@ export class Player extends Actor {
     },
     d: {
       pressed: false,
-    },
-    mouse: {
-      pressed: false,
-    },
-  };
-
-  mouse = {
-    x: 0,
-    y: 0,
+    }
   };
 
   constructor({ canvas, ...props }) {
@@ -47,14 +33,10 @@ export class Player extends Actor {
 
     this.canvas = canvas;
 
-    this.bow = new Sprite({
+    this.bow = new Bow({
+      canvas,
       context: props.context,
-      image: bow,
       position: props.position,
-      size: {
-        width: 40,
-        height: 40,
-      },
       offset: {
         x: 24,
         y: 18,
@@ -65,18 +47,9 @@ export class Player extends Actor {
   }
 
   update() {
-    this.updateBow();
     this.updatePosition();
     this.updateState();
     this.bow.draw();
-  }
-
-  updateBow() {
-    this.bow.rotation =
-      Math.atan2(
-        this.mouse.x - this.position.x,
-        -(this.mouse.y - this.position.y)
-      ) - 1.4;
   }
 
   updateState() {
@@ -152,10 +125,6 @@ export class Player extends Actor {
           this.keys.d.pressed = false;
           break;
       }
-    });
-
-    window.addEventListener("mousemove", (e) => {
-      this.mouse = mouseEvents(this.canvas, e);
     });
   }
 }
