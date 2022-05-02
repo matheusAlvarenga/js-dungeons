@@ -1,7 +1,7 @@
 import { Actor } from "./actor.js";
-import { Projectile } from "./projectile.js";
 import bowData from "../data/bow.js";
-import { mouseEvents } from "../utils/mouse.js";
+import { mouseEvents, velocityCalculator } from "../utils/mouse.js";
+import { Arrow } from "./arrow.js";
 
 export class Bow extends Actor {
   isShooting = false;
@@ -43,9 +43,11 @@ export class Bow extends Actor {
   postLoop() {
     if (this.actualState === "shoot") {
       this.arrows.push(
-        new Projectile({
+        new Arrow({
           context: this.context,
-          position: this.mouse,
+          position: this.position,
+          rotation: this.rotation + 1.35,
+          velocity: velocityCalculator(this.mouse, this.position),
         })
       );
       this.isShooting = false;
