@@ -1,6 +1,7 @@
 import { Actor } from "./actor.js";
 import playerData from "../data/player.js";
 import { Bow } from "./bow.js";
+import { HpBar } from "./hp_bar.js";
 
 export class Player extends Actor {
   isRunning = false;
@@ -43,6 +44,19 @@ export class Player extends Actor {
       },
     });
 
+    this.hpBar = new HpBar({
+      context: props.context,
+      position: props.position,
+      percent: 50,
+      health: 7,
+      maxHealth: 10,
+      width: 46,
+      offset: {
+        x: -20,
+        y: 50,
+      },
+    });
+
     this.startKeyboardEvent();
   }
 
@@ -50,6 +64,7 @@ export class Player extends Actor {
     this.updatePosition();
     this.updateState();
     this.bow.draw();
+    this.hpBar.draw();
   }
 
   updateState() {
