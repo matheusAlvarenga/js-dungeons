@@ -6,6 +6,10 @@ import { HpBar } from "./hp_bar.js";
 export class Player extends Actor {
   isRunning = false;
 
+  hp = 40;
+
+  maxHp = 40;
+
   keys = {
     w: {
       pressed: false,
@@ -48,8 +52,8 @@ export class Player extends Actor {
       context: props.context,
       position: props.position,
       percent: 50,
-      health: 7,
-      maxHealth: 10,
+      health: this.hp,
+      maxHealth: this.maxHp,
       width: 46,
       offset: {
         x: -20,
@@ -91,6 +95,16 @@ export class Player extends Actor {
     if (this.keys.d.pressed) {
       this.position.x += 3;
     }
+  }
+
+  takeDamage(damage) {
+    this.hp -= damage;
+    this.hpBar.health = this.hp;
+  }
+
+  heal(health) {
+    this.hp += health;
+    this.hpBar.health = this.hp;
   }
 
   startKeyboardEvent() {
