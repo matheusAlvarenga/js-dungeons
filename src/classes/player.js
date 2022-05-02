@@ -17,7 +17,7 @@ export class Player extends Actor {
     },
     d: {
       pressed: false,
-    }
+    },
   };
 
   constructor({ canvas, ...props }) {

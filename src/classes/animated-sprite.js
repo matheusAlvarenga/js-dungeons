@@ -37,8 +37,8 @@ export class AnimatedSprite extends Sprite {
       if (this.frames.val < this.frames.totalFrames - 1) this.frames.val += 1;
       else this.frames.val = 0;
 
-      if(this.frames.val >= this.frames.totalFrames - 1) {
-        this.postLoop()
+      if (this.frames.val >= this.frames.totalFrames - 1) {
+        this.postLoop();
       }
     }
   }

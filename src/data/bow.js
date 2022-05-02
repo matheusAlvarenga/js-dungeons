@@ -13,6 +13,6 @@ bowShoot3.src = "assets/bow/shoot_3.png";
 export default {
   animationFrames: {
     idle: [bow],
-    shoot: [bowShoot1, bowShoot2, bowShoot3]
+    shoot: [bowShoot1, bowShoot2, bowShoot3],
   },
 };
