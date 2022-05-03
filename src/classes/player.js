@@ -62,10 +62,10 @@ export class Player extends Actor {
     });
 
     this.hitbox = {
-      x: props.position.x,
-      y: props.position.y,
-      height: 40,
-      width: 40,
+      x: props.position.x - 26,
+      y: props.position.y - 24,
+      height: 66,
+      width: 56,
     };
 
     this.startKeyboardEvent();
@@ -90,18 +90,22 @@ export class Player extends Actor {
   updatePosition() {
     if (this.keys.w.pressed) {
       this.position.y -= 3;
+      this.hitbox.y -= 3;
     }
 
     if (this.keys.s.pressed) {
       this.position.y += 3;
+      this.hitbox.y += 3;
     }
 
     if (this.keys.a.pressed) {
       this.position.x -= 3;
+      this.hitbox.x -= 3;
     }
 
     if (this.keys.d.pressed) {
       this.position.x += 3;
+      this.hitbox.x += 3;
     }
   }
 
@@ -111,10 +115,10 @@ export class Player extends Actor {
     this.context.globalAlpha = 0.2;
     this.context.fillStyle = "red";
     this.context.fillRect(
-      this.hitbox.x - this.hitbox.width,
-      this.hitbox.y - this.hitbox.height,
-      this.hitbox.width * 2,
-      this.hitbox.height * 2
+      this.hitbox.x,
+      this.hitbox.y,
+      this.hitbox.width,
+      this.hitbox.height
     );
 
     this.context.restore();

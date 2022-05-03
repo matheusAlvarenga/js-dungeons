@@ -1,9 +1,12 @@
 import { Actor } from "./actor.js";
 
 import chestData from "../data/chest.js";
+import { detectBasicCollision } from "../utils/basic-collision.js";
 
 export class Chest extends Actor {
-  constructor({ context, ...props }) {
+  isColliding = false;
+
+  constructor({ context, playerHitBox, ...props }) {
     super({
       context,
       states: chestData.animationFrames,
@@ -18,15 +21,24 @@ export class Chest extends Actor {
     this.context = context;
 
     this.hitbox = {
-      x: props.position.x,
-      y: props.position.y,
-      height: 40,
-      width: 40,
+      x: props.position.x - 60,
+      y: props.position.y - 60,
+      height: 40 * 3,
+      width: 40 * 3,
     };
+
+    this.playerHitBox = playerHitBox;
   }
 
   update() {
     this.drawHitBox();
+    this.checkCollision();
+  }
+
+  checkCollision() {
+    if (detectBasicCollision(this.playerHitBox, this.hitbox)) {
+      this.isColliding = true;
+    }
   }
 
   drawHitBox() {
@@ -35,10 +47,10 @@ export class Chest extends Actor {
     this.context.globalAlpha = 0.2;
     this.context.fillStyle = "red";
     this.context.fillRect(
-      this.hitbox.x - this.hitbox.width,
-      this.hitbox.y - this.hitbox.height,
-      this.hitbox.width * 2,
-      this.hitbox.height * 2
+      this.hitbox.x,
+      this.hitbox.y,
+      this.hitbox.width,
+      this.hitbox.height
     );
 
     this.context.restore();

@@ -8,8 +8,8 @@ const player = new Player({
   canvas,
   context,
   position: {
-    x: 10,
-    y: 10,
+    x: 100,
+    y: 100,
   },
 });
 
@@ -20,6 +20,7 @@ const chest = new Chest({
     x: 300,
     y: 300,
   },
+  playerHitBox: player.hitbox,
 });
 
 function animate() {
