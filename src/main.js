@@ -1,3 +1,4 @@
+import { Chest } from "./classes/chest.js";
 import { Player } from "./classes/player.js";
 
 const canvas = document.getElementById("main-canvas");
@@ -12,9 +13,19 @@ const player = new Player({
   },
 });
 
+const chest = new Chest({
+  canvas,
+  context,
+  position: {
+    x: 300,
+    y: 300,
+  },
+});
+
 function animate() {
   window.requestAnimationFrame(animate);
   context.clearRect(0, 0, canvas.width, canvas.height);
+  chest.draw();
   player.draw();
 }
 animate();
