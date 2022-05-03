@@ -13,6 +13,7 @@ chestImageOpen3.src = "assets/chest/open_3.png";
 export default {
   animationFrames: {
     idle: [chestImageIdle],
-    open: [chestImageOpen1, chestImageOpen2, chestImageOpen3],
+    openning: [chestImageOpen1, chestImageOpen2, chestImageOpen3],
+    open: [chestImageOpen3],
   },
 };

@@ -7,6 +7,8 @@ import { ActionText } from "./action-text.js";
 export class Chest extends Actor {
   isColliding = false;
 
+  isOpen = false;
+
   constructor({ context, player, ...props }) {
     super({
       context,
@@ -20,6 +22,8 @@ export class Chest extends Actor {
     });
 
     this.context = context;
+
+    this.frames.hold = 25;
 
     this.hitbox = {
       x: props.position.x - 60,
@@ -47,8 +51,22 @@ export class Chest extends Actor {
   update() {
     this.drawHitBox();
     this.checkCollision();
+    this.openChest();
     if (this.isColliding) {
       this.actionText.draw();
+    }
+  }
+
+  postLoop() {
+    if (this.actualState === "openning") {
+      this.changeState("open");
+    }
+  }
+
+  openChest() {
+    if (this.player.keys.space.pressed && this.isColliding) {
+      this.isOpen = true;
+      this.changeState("openning");
     }
   }
 

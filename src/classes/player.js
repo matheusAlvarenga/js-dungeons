@@ -23,6 +23,9 @@ export class Player extends Actor {
     d: {
       pressed: false,
     },
+    space: {
+      pressed: false,
+    },
   };
 
   constructor({ canvas, ...props }) {
@@ -156,6 +159,10 @@ export class Player extends Actor {
           this.isRunning = true;
           this.keys.d.pressed = true;
           break;
+
+        case " ":
+          this.keys.space.pressed = true;
+          break;
       }
     });
 
@@ -179,6 +186,10 @@ export class Player extends Actor {
         case "d":
           this.isRunning = false;
           this.keys.d.pressed = false;
+          break;
+
+        case " ":
+          this.keys.space.pressed = false;
           break;
       }
     });
