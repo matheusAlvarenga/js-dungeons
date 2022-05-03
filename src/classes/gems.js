@@ -14,6 +14,7 @@ export class Gems extends Actor {
     });
 
     this.type = type;
+    this.player = player;
   }
 
   update() {
@@ -25,6 +26,6 @@ export class Gems extends Actor {
 
   takeGem() {
     this.remove = true;
-    console.log("take gem");
+    this.player.evolve(this.type);
   }
 }

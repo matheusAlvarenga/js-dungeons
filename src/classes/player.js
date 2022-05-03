@@ -10,6 +10,12 @@ export class Player extends Actor {
 
   maxHp = 40;
 
+  strength = 10;
+
+  attackSpeed = 10;
+
+  moveSpeed = 3;
+
   keys = {
     w: {
       pressed: false,
@@ -49,6 +55,7 @@ export class Player extends Actor {
         x: 24,
         y: 18,
       },
+      damage: this.strength,
     });
 
     this.hpBar = new HpBar({
@@ -92,23 +99,44 @@ export class Player extends Actor {
 
   updatePosition() {
     if (this.keys.w.pressed) {
-      this.position.y -= 3;
-      this.hitbox.y -= 3;
+      this.position.y -= this.moveSpeed;
+      this.hitbox.y -= this.moveSpeed;
     }
 
     if (this.keys.s.pressed) {
-      this.position.y += 3;
-      this.hitbox.y += 3;
+      this.position.y += this.moveSpeed;
+      this.hitbox.y += this.moveSpeed;
     }
 
     if (this.keys.a.pressed) {
-      this.position.x -= 3;
-      this.hitbox.x -= 3;
+      this.position.x -= this.moveSpeed;
+      this.hitbox.x -= this.moveSpeed;
     }
 
     if (this.keys.d.pressed) {
-      this.position.x += 3;
-      this.hitbox.x += 3;
+      this.position.x += this.moveSpeed;
+      this.hitbox.x += this.moveSpeed;
+    }
+  }
+
+  evolve(gemType) {
+    switch (gemType) {
+      case "emerald":
+        this.maxHp += 10;
+        this.hp = this.maxHp;
+        break;
+
+      case "ruby":
+        this.strength += 2;
+        break;
+
+      case "ambar":
+        this.attackSpeed += 1;
+        break;
+
+      case "saphire":
+        this.moveSpeed += 1;
+        break;
     }
   }
 

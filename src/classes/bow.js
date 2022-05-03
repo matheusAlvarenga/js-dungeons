@@ -13,7 +13,7 @@ export class Bow extends Actor {
 
   arrows = [];
 
-  constructor({ canvas, ...props }) {
+  constructor({ canvas, damage, ...props }) {
     super({
       states: bowData.animationFrames,
       defaultState: "idle",
@@ -27,6 +27,7 @@ export class Bow extends Actor {
     this.frames.hold = 25;
 
     this.canvas = canvas;
+    this.damage = damage;
     this.startMouseEvent();
   }
 
