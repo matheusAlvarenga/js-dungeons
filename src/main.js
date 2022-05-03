@@ -20,7 +20,7 @@ const chest = new Chest({
     x: 300,
     y: 300,
   },
-  playerHitBox: player.hitbox,
+  player,
 });
 
 function animate() {
