@@ -1,4 +1,6 @@
 export class Sprite {
+  invMatrix;
+
   constructor({
     context,
     position,
@@ -29,6 +31,8 @@ export class Sprite {
       this.position.y + this.offset.y
     );
     this.context.rotate(this.rotation);
+
+    this.invMatrix = this.context.getTransform().invertSelf();
 
     this.context.drawImage(
       this.image,
