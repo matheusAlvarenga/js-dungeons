@@ -48,6 +48,7 @@ export class Chest extends Actor {
 
     this.gem = new Gems({
       context,
+      player,
       position: {
         x: 0,
         y: 0,
@@ -69,7 +70,7 @@ export class Chest extends Actor {
   update() {
     this.drawHitBox();
     this.checkCollision();
-    this.openChest();
+    this.doAction();
     if (this.isColliding) {
       this.actionText.draw();
     }
@@ -89,13 +90,15 @@ export class Chest extends Actor {
   }
 
   animateGem() {
-    this.gem.opacity += 0.01;
+    if (this.gem.opacity <= 1) {
+      this.gem.opacity += 0.01;
+    }
     if (this.gem.offset.y > -15) {
       this.gem.offset.y -= 0.1;
     }
   }
 
-  openChest() {
+  doAction() {
     if (this.player.keys.space.pressed && this.isColliding) {
       this.isOpen = true;
       this.changeState("openning");

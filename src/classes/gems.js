@@ -3,7 +3,9 @@ import { getRandomObjectKey } from "../utils/random.js";
 import gemsData from "../data/gems.js";
 
 export class Gems extends Actor {
-  constructor({ ...props }) {
+  gemTaken = false;
+
+  constructor({ player, ...props }) {
     const type = getRandomObjectKey(gemsData.animationFrames);
     super({
       defaultState: type,
@@ -12,5 +14,17 @@ export class Gems extends Actor {
     });
 
     this.type = type;
+  }
+
+  update() {
+    if (this.opacity > 1 && !this.gemTaken) {
+      this.gemTaken = true;
+      this.takeGem();
+    }
+  }
+
+  takeGem() {
+    this.remove = true;
+    console.log("take gem");
   }
 }
