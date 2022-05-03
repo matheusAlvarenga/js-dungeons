@@ -8,6 +8,7 @@ export class Sprite {
     size,
     rotation = 0,
     offset = { x: 0, y: 0 },
+    opacity = 1,
   }) {
     this.context = context;
     this.position = position;
@@ -15,6 +16,7 @@ export class Sprite {
     this.size = size;
     this.rotation = rotation;
     this.offset = offset;
+    this.opacity = opacity;
   }
 
   preDraw() {}
@@ -31,6 +33,8 @@ export class Sprite {
       this.position.y + this.offset.y
     );
     this.context.rotate(this.rotation);
+
+    this.context.globalAlpha = this.opacity;
 
     this.invMatrix = this.context.getTransform().invertSelf();
 
