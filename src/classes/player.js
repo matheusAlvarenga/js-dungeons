@@ -6,6 +6,8 @@ import { HpBar } from "./hp_bar.js";
 export class Player extends Actor {
   isRunning = false;
 
+  isInvincible = false;
+
   hp = 40;
 
   maxHp = 40;
@@ -81,12 +83,21 @@ export class Player extends Actor {
     this.startKeyboardEvent();
   }
 
+  preKnockback() {
+    this.isInvincible = true;
+  }
+
+  postKnockback() {
+    this.isInvincible = false;
+  }
+
   update() {
     this.updatePosition();
     this.updateState();
     this.bow.draw();
     this.hpBar.draw();
     this.drawHitBox();
+    this.updateKnockbackPosition();
   }
 
   updateState() {
