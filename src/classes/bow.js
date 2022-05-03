@@ -73,15 +73,15 @@ export class Bow extends Actor {
   }
 
   startMouseEvent() {
-    window.addEventListener("mousedown", () => {
+    this.canvas.addEventListener("mousedown", () => {
       this.isShooting = true;
     });
 
-    window.addEventListener("mouseup", () => {
+    this.canvas.addEventListener("mouseup", () => {
       this.isShooting = false;
     });
 
-    window.addEventListener("mousemove", (e) => {
+    this.canvas.addEventListener("mousemove", (e) => {
       this.mouse = mouseEvents(this.canvas, e);
     });
   }
