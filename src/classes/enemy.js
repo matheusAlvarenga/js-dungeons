@@ -1,9 +1,18 @@
 import { Actor } from "./actor.js";
 
 import enemyData from "../data/enemy.js";
+import { detectBasicCollision } from "../utils/basic-collision.js";
+import { velocityCalculator } from "../utils/mouse.js";
 
 export class Enemy extends Actor {
-  constructor({ ...props }) {
+  velocity = {
+    x: 0,
+    y: 0,
+  };
+
+  following = false;
+
+  constructor({ player, ...props }) {
     super({
       states: enemyData.orcs.warrior.animationFrames,
       defaultState: "idle",
@@ -14,16 +23,54 @@ export class Enemy extends Actor {
       ...props,
     });
 
+    this.player = player;
+
     this.hitbox = {
       x: this.position.x - this.size.width / 2,
       y: this.position.y - this.size.height / 2,
       width: this.size.width,
       height: this.size.height,
     };
+
+    this.visionHitbox = {
+      x: this.position.x - 250,
+      y: this.position.y - 250,
+      width: 500,
+      height: 500,
+    };
   }
 
   update() {
+    this.drawVisionHitBox();
     this.drawHitBox();
+    this.seekForPlayer();
+    this.updatePosition();
+    this.followPlayer();
+  }
+
+  updatePosition() {
+    this.position.x += this.velocity.x;
+    this.hitbox.x += this.velocity.x;
+    this.visionHitbox.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+    this.hitbox.y += this.velocity.y;
+    this.visionHitbox.y += this.velocity.y;
+  }
+
+  followPlayer() {
+    if (this.following) {
+      this.velocity = velocityCalculator(
+        this.player.position,
+        this.position,
+        2
+      );
+    }
+  }
+
+  seekForPlayer() {
+    if (detectBasicCollision(this.player.hitbox, this.visionHitbox)) {
+      this.following = true;
+    }
   }
 
   drawHitBox() {
@@ -36,6 +83,21 @@ export class Enemy extends Actor {
       this.hitbox.y,
       this.hitbox.width,
       this.hitbox.height
+    );
+
+    this.context.restore();
+  }
+
+  drawVisionHitBox() {
+    this.context.save();
+
+    this.context.globalAlpha = 0.2;
+    this.context.fillStyle = "yellow";
+    this.context.fillRect(
+      this.visionHitbox.x,
+      this.visionHitbox.y,
+      this.visionHitbox.width,
+      this.visionHitbox.height
     );
 
     this.context.restore();

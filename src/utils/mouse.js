@@ -6,11 +6,11 @@ export const mouseEvents = (canvas, e) => {
   };
 };
 
-export const velocityCalculator = (mouse, position) => {
+export const velocityCalculator = (mouse, position, velocity = 10) => {
   const angle = Math.atan2(mouse.y - position.y, mouse.x - position.x);
 
   return {
-    x: Math.cos(angle) * 10,
-    y: Math.sin(angle) * 10,
+    x: Math.cos(angle) * velocity,
+    y: Math.sin(angle) * velocity,
   };
 };
