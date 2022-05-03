@@ -9,6 +9,7 @@ export class Sprite {
     rotation = 0,
     offset = { x: 0, y: 0 },
     opacity = 1,
+    remove = false,
   }) {
     this.context = context;
     this.position = position;
@@ -17,6 +18,7 @@ export class Sprite {
     this.rotation = rotation;
     this.offset = offset;
     this.opacity = opacity;
+    this.remove = remove;
   }
 
   preDraw() {}
@@ -24,6 +26,9 @@ export class Sprite {
   postDraw() {}
 
   draw() {
+    if (this.remove) {
+      return;
+    }
     this.context.save();
 
     this.preDraw();
