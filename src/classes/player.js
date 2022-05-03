@@ -61,6 +61,13 @@ export class Player extends Actor {
       },
     });
 
+    this.hitbox = {
+      x: props.position.x,
+      y: props.position.y,
+      height: 40,
+      width: 40,
+    };
+
     this.startKeyboardEvent();
   }
 
@@ -69,6 +76,7 @@ export class Player extends Actor {
     this.updateState();
     this.bow.draw();
     this.hpBar.draw();
+    this.drawHitBox();
   }
 
   updateState() {
@@ -95,6 +103,21 @@ export class Player extends Actor {
     if (this.keys.d.pressed) {
       this.position.x += 3;
     }
+  }
+
+  drawHitBox() {
+    this.context.save();
+
+    this.context.globalAlpha = 0.2;
+    this.context.fillStyle = "red";
+    this.context.fillRect(
+      this.hitbox.x - this.hitbox.width,
+      this.hitbox.y - this.hitbox.height,
+      this.hitbox.width * 2,
+      this.hitbox.height * 2
+    );
+
+    this.context.restore();
   }
 
   takeDamage(damage) {
