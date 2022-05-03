@@ -3,6 +3,7 @@ import { Actor } from "./actor.js";
 import chestData from "../data/chest.js";
 import { detectBasicCollision } from "../utils/basic-collision.js";
 import { ActionText } from "./action-text.js";
+import { Gems } from "./gems.js";
 
 export class Chest extends Actor {
   isColliding = false;
@@ -45,6 +46,23 @@ export class Chest extends Actor {
       },
     });
 
+    this.gem = new Gems({
+      context,
+      position: {
+        x: 0,
+        y: 0,
+      },
+      size: {
+        height: 16,
+        width: 16,
+      },
+      offset: {
+        x: 0,
+        y: 0,
+      },
+      opacity: 0,
+    });
+
     this.player = player;
   }
 
@@ -57,9 +75,23 @@ export class Chest extends Actor {
     }
   }
 
+  postDraw() {
+    if (this.isOpen) {
+      this.gem.draw();
+      this.animateGem();
+    }
+  }
+
   postLoop() {
     if (this.actualState === "openning") {
       this.changeState("open");
+    }
+  }
+
+  animateGem() {
+    this.gem.opacity += 0.01;
+    if (this.gem.offset.y > -15) {
+      this.gem.offset.y -= 0.1;
     }
   }
 
