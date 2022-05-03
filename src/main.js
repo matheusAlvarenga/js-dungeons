@@ -1,4 +1,5 @@
 import { Chest } from "./classes/chest.js";
+import { Enemy } from "./classes/enemy.js";
 import { Player } from "./classes/player.js";
 
 const canvas = document.getElementById("main-canvas");
@@ -23,10 +24,21 @@ const chest = new Chest({
   player,
 });
 
+const enemy = new Enemy({
+  canvas,
+  context,
+  position: {
+    x: 450,
+    y: 300,
+  },
+  player,
+});
+
 function animate() {
   window.requestAnimationFrame(animate);
   context.clearRect(0, 0, canvas.width, canvas.height);
   chest.draw();
   player.draw();
+  enemy.draw();
 }
 animate();
