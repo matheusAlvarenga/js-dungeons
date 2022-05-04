@@ -12,6 +12,14 @@ export class Enemy extends Actor {
 
   following = false;
 
+  hp = 40;
+
+  maxHp = 40;
+
+  strength = 10;
+
+  moveSpeed = 3;
+
   constructor({ player, ...props }) {
     super({
       states: enemyData.orcs.warrior.animationFrames,
@@ -44,6 +52,7 @@ export class Enemy extends Actor {
     this.drawVisionHitBox();
     this.drawHitBox();
     this.seekForPlayer();
+    this.checkPlayerCollision();
     this.updatePosition();
     this.followPlayer();
   }
@@ -55,6 +64,24 @@ export class Enemy extends Actor {
     this.position.y += this.velocity.y;
     this.hitbox.y += this.velocity.y;
     this.visionHitbox.y += this.velocity.y;
+  }
+
+  checkPlayerCollision() {
+    if (detectBasicCollision(this.player.hitbox, this.hitbox)) {
+      let x = 0;
+      const y = 0;
+      if (
+        this.player.position.x + this.player.size.width / 2 >
+        this.position.x + this.size.width / 2
+      ) {
+        x = +15;
+      } else {
+        x = -15;
+      }
+
+      this.player.knockBack({ x, y });
+      this.player.takeDamage(this.strength);
+    }
   }
 
   followPlayer() {

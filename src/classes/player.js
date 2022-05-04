@@ -167,8 +167,10 @@ export class Player extends Actor {
   }
 
   takeDamage(damage) {
-    this.hp -= damage;
-    this.hpBar.health = this.hp;
+    if (!this.isInvincible) {
+      this.hp -= damage;
+      this.hpBar.health = this.hp;
+    }
   }
 
   heal(health) {
