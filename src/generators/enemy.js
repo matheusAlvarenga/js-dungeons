@@ -15,8 +15,8 @@ export const enemyGenerator = ({
         canvas,
         context,
         position: {
-          x: Math.floor(Math.random() * canvas.width) - 40,
-          y: Math.floor(Math.random() * canvas.height) - 40,
+          x: Math.floor(Math.random() * canvas.width - 40) + 40,
+          y: Math.floor(Math.random() * canvas.height - 40) + 40,
         },
         player: player,
       })
