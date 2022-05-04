@@ -1,5 +1,6 @@
 import { Chest } from "./classes/chest.js";
 import { Enemy } from "./classes/enemy.js";
+import { GameOver } from "./classes/game-over.js";
 import { Player } from "./classes/player.js";
 
 const canvas = document.getElementById("main-canvas");
@@ -34,11 +35,17 @@ const enemy = new Enemy({
   player,
 });
 
+const gameOver = new GameOver({
+  canvas,
+  context,
+});
+
 function animate() {
   window.requestAnimationFrame(animate);
   context.clearRect(0, 0, canvas.width, canvas.height);
   chest.draw();
   player.draw();
   enemy.draw();
+  if (player.dead) gameOver.draw();
 }
 animate();
