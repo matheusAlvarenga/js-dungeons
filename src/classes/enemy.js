@@ -4,6 +4,7 @@ import enemyData from "../data/enemy.js";
 import { detectBasicCollision } from "../utils/basic-collision.js";
 import { velocityCalculator } from "../utils/mouse.js";
 import { HpBar } from "./hp_bar.js";
+import { checkFullCollision } from "../utils/rotated-collision.js";
 
 export class Enemy extends Actor {
   velocity = {
@@ -69,6 +70,8 @@ export class Enemy extends Actor {
     this.checkPlayerCollision();
     this.updatePosition();
     this.followPlayer();
+    this.setCorners();
+    this.checkArrowCollision();
   }
 
   updatePosition() {
@@ -78,6 +81,20 @@ export class Enemy extends Actor {
     this.position.y += this.velocity.y;
     this.hitbox.y += this.velocity.y;
     this.visionHitbox.y += this.velocity.y;
+  }
+
+  checkArrowCollision() {
+    let collision = false;
+
+    this.player.bow.arrows.forEach((arrow) => {
+      if (checkFullCollision(arrow.getCorners(), this.getCorners())) {
+        collision = true;
+      }
+    });
+
+    if (collision) {
+      console.log("colidiu");
+    }
   }
 
   checkPlayerCollision() {
@@ -142,5 +159,36 @@ export class Enemy extends Actor {
     );
 
     this.context.restore();
+  }
+
+  setCorners() {
+    this.leftTopCorner = {
+      x: this.hitbox.x,
+      y: this.hitbox.y,
+    };
+
+    this.rightTopCorner = {
+      x: this.hitbox.x + this.hitbox.width,
+      y: this.hitbox.y,
+    };
+
+    this.rightBottomCorner = {
+      x: this.hitbox.x + this.hitbox.width,
+      y: this.hitbox.y + this.hitbox.height,
+    };
+
+    this.leftBottomCorner = {
+      x: this.position.x,
+      y: this.hitbox.y + this.hitbox.height,
+    };
+  }
+
+  getCorners() {
+    return [
+      this.leftTopCorner,
+      this.rightTopCorner,
+      this.rightBottomCorner,
+      this.leftBottomCorner,
+    ];
   }
 }
