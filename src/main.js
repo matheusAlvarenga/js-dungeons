@@ -1,41 +1,15 @@
-import { Chest } from "./classes/chest.js";
-import { Enemy } from "./classes/enemy.js";
 import { GameOver } from "./classes/game-over.js";
+import { Game } from "./classes/game.js";
 import { MainMenu } from "./classes/main-menu.js";
-import { Player } from "./classes/player.js";
 
 const canvas = document.getElementById("main-canvas");
 const context = canvas.getContext("2d");
 
 let isMainMenu = true;
 
-const player = new Player({
+let game = new Game({
   canvas,
   context,
-  position: {
-    x: 100,
-    y: 100,
-  },
-});
-
-const chest = new Chest({
-  canvas,
-  context,
-  position: {
-    x: 300,
-    y: 300,
-  },
-  player,
-});
-
-const enemy = new Enemy({
-  canvas,
-  context,
-  position: {
-    x: 450,
-    y: 300,
-  },
-  player,
 });
 
 const gameOver = new GameOver({
@@ -54,16 +28,15 @@ function animate() {
 
   if (isMainMenu) mainMenu.draw();
   else {
-    chest.draw();
-    player.draw();
-    enemy.draw();
+    game.draw();
   }
-  if (player.dead) gameOver.draw();
+
+  if (game.player.dead) gameOver.draw();
 }
 animate();
 
 canvas.addEventListener("click", () => {
   if (isMainMenu) {
     isMainMenu = false;
-  }
+  } else if (game.player.dead) game = new Game({ canvas, context });
 });
