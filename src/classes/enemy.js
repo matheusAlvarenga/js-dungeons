@@ -3,6 +3,7 @@ import { Actor } from "./actor.js";
 import enemyData from "../data/enemy.js";
 import { detectBasicCollision } from "../utils/basic-collision.js";
 import { velocityCalculator } from "../utils/mouse.js";
+import { HpBar } from "./hp_bar.js";
 
 export class Enemy extends Actor {
   velocity = {
@@ -33,6 +34,18 @@ export class Enemy extends Actor {
 
     this.player = player;
 
+    this.hpBar = new HpBar({
+      context: props.context,
+      position: props.position,
+      health: this.hp,
+      maxHealth: this.maxHp,
+      width: 40,
+      offset: {
+        x: -20,
+        y: 25,
+      },
+    });
+
     this.hitbox = {
       x: this.position.x - this.size.width / 2,
       y: this.position.y - this.size.height / 2,
@@ -51,6 +64,7 @@ export class Enemy extends Actor {
   update() {
     this.drawVisionHitBox();
     this.drawHitBox();
+    this.hpBar.draw();
     this.seekForPlayer();
     this.checkPlayerCollision();
     this.updatePosition();
@@ -89,7 +103,7 @@ export class Enemy extends Actor {
       this.velocity = velocityCalculator(
         this.player.position,
         this.position,
-        2
+        this.moveSpeed
       );
     }
   }
