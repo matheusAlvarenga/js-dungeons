@@ -19,6 +19,7 @@ export const enemyGenerator = ({
           y: Math.floor(Math.random() * canvas.height - 40) + 40,
         },
         player: player,
+        difficulty,
       })
     );
   }

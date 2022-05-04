@@ -7,7 +7,7 @@ export class Floor {
       canvas,
       context,
       quantity: Math.ceil(floor * 1.2),
-      difficulty,
+      difficulty: Math.ceil(floor * 1.05),
       player,
     });
   }

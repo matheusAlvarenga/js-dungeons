@@ -14,15 +14,15 @@ export class Enemy extends Actor {
 
   following = false;
 
-  hp = 40;
+  hp = 20;
 
-  maxHp = 40;
+  maxHp = 20;
 
-  strength = 10;
+  strength = 6;
 
-  moveSpeed = 3;
+  moveSpeed = 1;
 
-  constructor({ player, ...props }) {
+  constructor({ player, difficulty, ...props }) {
     super({
       states: enemyData.orcs.warrior.animationFrames,
       defaultState: "idle",
@@ -32,6 +32,11 @@ export class Enemy extends Actor {
       },
       ...props,
     });
+
+    this.maxHp *= difficulty;
+    this.hp = this.maxHp;
+    this.strength *= difficulty;
+    this.moveSpeed *= difficulty;
 
     this.player = player;
 
