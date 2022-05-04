@@ -141,7 +141,9 @@ export class Player extends Actor {
     switch (gemType) {
       case "emerald":
         this.maxHp += 10;
+        this.hpBar.maxHealth = this.maxHp;
         this.hp = this.maxHp;
+        this.hpBar.health = this.hp;
         break;
 
       case "ruby":
