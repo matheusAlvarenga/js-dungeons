@@ -10,6 +10,9 @@ orcWarriorIdle3.src = "assets/orc/warrior/idle_3.png";
 const orcWarriorIdle4 = new Image();
 orcWarriorIdle4.src = "assets/orc/warrior/idle_4.png";
 
+const orcWarriorDead = new Image();
+orcWarriorDead.src = "assets/orc/warrior/dead.png";
+
 export default {
   orcs: {
     warrior: {
@@ -21,6 +24,7 @@ export default {
           orcWarriorIdle4,
         ],
         run: [],
+        dead: [orcWarriorDead],
       },
     },
   },

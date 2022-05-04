@@ -7,6 +7,8 @@ export class Actor extends AnimatedSprite {
 
   isKnocking = false;
 
+  dead = false;
+
   knockBackVelocity = {
     x: 0,
     y: 0,

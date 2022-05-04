@@ -63,16 +63,25 @@ export class Enemy extends Actor {
   }
 
   update() {
+    if (this.dead) return;
     this.drawVisionHitBox();
     this.drawHitBox();
+    this.updatePosition();
+    this.checkIfDied();
     this.hpBar.draw();
     this.seekForPlayer();
     this.checkPlayerCollision();
-    this.updatePosition();
     this.followPlayer();
     this.setCorners();
     this.checkArrowCollision();
     this.updateKnockbackPosition();
+  }
+
+  checkIfDied() {
+    if (this.hp <= 0) {
+      this.dead = true;
+      this.changeState("dead");
+    }
   }
 
   updatePosition() {
