@@ -1,6 +1,8 @@
 import { AnimatedSprite } from "./animated-sprite.js";
 
 export class Actor extends AnimatedSprite {
+  isInvincible = false;
+
   knockBackCounter = 0;
 
   isKnocking = false;
@@ -24,6 +26,13 @@ export class Actor extends AnimatedSprite {
     if (this.frames.totalFrames < this.frames.val) {
       this.frames.val = 0;
       this.frames.elapsed = 0;
+    }
+  }
+
+  takeDamage(damage) {
+    if (!this.isInvincible) {
+      this.hp -= damage;
+      this.hpBar.health = this.hp;
     }
   }
 

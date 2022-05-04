@@ -6,15 +6,13 @@ import { HpBar } from "./hp_bar.js";
 export class Player extends Actor {
   isRunning = false;
 
-  isInvincible = false;
-
   hp = 40;
 
   maxHp = 40;
 
   strength = 10;
 
-  attackSpeed = 10;
+  knockbackForce = 5;
 
   moveSpeed = 3;
 
@@ -164,13 +162,6 @@ export class Player extends Actor {
     );
 
     this.context.restore();
-  }
-
-  takeDamage(damage) {
-    if (!this.isInvincible) {
-      this.hp -= damage;
-      this.hpBar.health = this.hp;
-    }
   }
 
   heal(health) {

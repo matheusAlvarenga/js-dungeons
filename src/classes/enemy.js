@@ -72,6 +72,7 @@ export class Enemy extends Actor {
     this.followPlayer();
     this.setCorners();
     this.checkArrowCollision();
+    this.updateKnockbackPosition();
   }
 
   updatePosition() {
@@ -86,14 +87,28 @@ export class Enemy extends Actor {
   checkArrowCollision() {
     let collision = false;
 
-    this.player.bow.arrows.forEach((arrow) => {
+    this.player.bow.arrows.forEach((arrow, i) => {
       if (checkFullCollision(arrow.getCorners(), this.getCorners())) {
         collision = true;
+        this.player.bow.arrows.splice(i);
       }
     });
 
     if (collision) {
-      console.log("colidiu");
+      let x = 0;
+      const y = 0;
+      if (
+        this.player.position.x + this.player.size.width / 2 >
+        this.position.x + this.size.width / 2
+      ) {
+        x = -15;
+      } else {
+        x = +15;
+      }
+
+      this.takeDamage(this.player.strength);
+      this.knockBack({ x, y });
+      this.following = true;
     }
   }
 
