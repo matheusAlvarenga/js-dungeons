@@ -22,6 +22,9 @@ playerImageRun3.src = "assets/player/run_3.png";
 const playerImageRun4 = new Image();
 playerImageRun4.src = "assets/player/run_4.png";
 
+const playerImageDead = new Image();
+playerImageDead.src = "assets/player/dead.png";
+
 export default {
   animationFrames: {
     idle: [
@@ -31,5 +34,6 @@ export default {
       playerImageIdle4,
     ],
     run: [playerImageRun1, playerImageRun2, playerImageRun3, playerImageRun4],
+    dead: [playerImageDead],
   },
 };

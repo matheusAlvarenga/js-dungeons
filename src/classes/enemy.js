@@ -63,7 +63,7 @@ export class Enemy extends Actor {
   }
 
   update() {
-    if (this.dead) return;
+    if (this.dead || this.player.dead) return;
     this.drawVisionHitBox();
     this.drawHitBox();
     this.updatePosition();

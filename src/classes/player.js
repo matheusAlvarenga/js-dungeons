@@ -90,12 +90,21 @@ export class Player extends Actor {
   }
 
   update() {
+    this.checkIfDied();
+    if (this.dead) return;
     this.updatePosition();
     this.updateState();
     this.bow.draw();
     this.hpBar.draw();
     this.drawHitBox();
     this.updateKnockbackPosition();
+  }
+
+  checkIfDied() {
+    if (this.hp <= 0) {
+      this.dead = true;
+      this.changeState("dead");
+    }
   }
 
   updateState() {
