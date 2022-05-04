@@ -1,6 +1,7 @@
 import { Chest } from "./chest.js";
 import { FloorCounter } from "./floor-counter.js";
 import { Floor } from "./floor.js";
+import { Ladder } from "./ladder.js";
 import { Player } from "./player.js";
 
 export class Game {
@@ -26,6 +27,16 @@ export class Game {
       player: this.player,
     });
 
+    this.ladder = new Ladder({
+      canvas,
+      context,
+      position: {
+        x: 600,
+        y: 300,
+      },
+      player: this.player,
+    });
+
     this.floor = new Floor({
       canvas,
       context,
@@ -43,8 +54,9 @@ export class Game {
 
   draw() {
     this.floor.draw();
+    this.ladder.draw();
     this.floorCounter.draw();
-    this.player.draw();
     this.chest.draw();
+    this.player.draw();
   }
 }
