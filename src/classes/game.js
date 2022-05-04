@@ -8,6 +8,9 @@ export class Game {
   floorNumber = 1;
 
   constructor({ canvas, context }) {
+    this.canvas = canvas;
+    this.context = context;
+
     this.player = new Player({
       canvas,
       context,
@@ -58,5 +61,26 @@ export class Game {
     this.floorCounter.draw();
     this.chest.draw();
     this.player.draw();
+    this.doAction();
+  }
+
+  doAction() {
+    if (this.player.keys.space.pressed && this.ladder.isColliding) {
+      this.generateNewFloor();
+    }
+  }
+
+  generateNewFloor() {
+    if (this.floor.enemies.every((enemy) => enemy.dead)) {
+      this.floorNumber += 1;
+      this.floorCounter.floor = this.floorNumber;
+      this.floor = new Floor({
+        canvas: this.canvas,
+        context: this.context,
+        difficulty: 1,
+        floor: this.floorNumber,
+        player: this.player,
+      });
+    }
   }
 }
