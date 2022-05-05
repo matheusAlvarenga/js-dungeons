@@ -14,13 +14,13 @@ export class Enemy extends Actor {
 
   following = false;
 
-  hp = 20;
+  hp = 40;
 
-  maxHp = 20;
+  maxHp = 15;
 
-  strength = 6;
+  strength = 4;
 
-  moveSpeed = 1;
+  moveSpeed = 2;
 
   constructor({ player, difficulty, ...props }) {
     super({
@@ -33,10 +33,10 @@ export class Enemy extends Actor {
       ...props,
     });
 
-    this.maxHp *= difficulty;
+    this.maxHp *= difficulty * 2;
     this.hp = this.maxHp;
     this.strength *= difficulty;
-    this.moveSpeed *= difficulty / 2;
+    this.moveSpeed *= difficulty * 1.2;
 
     this.player = player;
 

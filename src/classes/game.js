@@ -33,7 +33,6 @@ export class Game {
     this.floor = new Floor({
       canvas,
       context,
-      difficulty: 1,
       floor: this.floorNumber,
       player: this.player,
     });

@@ -140,7 +140,7 @@ export class Player extends Actor {
   evolve(gemType) {
     switch (gemType) {
       case "emerald":
-        this.maxHp += 10;
+        this.maxHp += 5;
         this.hpBar.maxHealth = this.maxHp;
         this.hp = this.maxHp;
         this.hpBar.health = this.hp;
@@ -156,7 +156,7 @@ export class Player extends Actor {
         break;
 
       case "saphire":
-        this.moveSpeed += 1;
+        this.moveSpeed += 0.5;
         break;
     }
   }
