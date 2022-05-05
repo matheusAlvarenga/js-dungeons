@@ -36,7 +36,7 @@ export class Enemy extends Actor {
     this.maxHp *= difficulty;
     this.hp = this.maxHp;
     this.strength *= difficulty;
-    this.moveSpeed *= difficulty;
+    this.moveSpeed *= difficulty / 2;
 
     this.player = player;
 
@@ -157,7 +157,11 @@ export class Enemy extends Actor {
   seekForPlayer() {
     if (detectBasicCollision(this.player.hitbox, this.visionHitbox)) {
       this.following = true;
+
+      return true;
     }
+
+    return false;
   }
 
   drawHitBox() {
