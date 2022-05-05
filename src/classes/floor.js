@@ -1,3 +1,4 @@
+import { chestGenerator } from "../generators/chest.js";
 import { enemyGenerator } from "../generators/enemy.js";
 
 export class Floor {
@@ -10,10 +11,22 @@ export class Floor {
       difficulty: Math.ceil(floor * 1.05),
       player,
     });
+
+    this.chests = chestGenerator({
+      canvas,
+      context,
+      quantity: Math.ceil(floor * 0.3),
+      player,
+    });
   }
 
   draw() {
     this.drawEnemies();
+    this.drawChests();
+  }
+
+  drawChests() {
+    this.chests.forEach((chest) => chest.draw());
   }
 
   drawEnemies() {

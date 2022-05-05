@@ -20,16 +20,6 @@ export class Game {
       },
     });
 
-    this.chest = new Chest({
-      canvas,
-      context,
-      position: {
-        x: 300,
-        y: 300,
-      },
-      player: this.player,
-    });
-
     this.ladder = new Ladder({
       canvas,
       context,
@@ -59,7 +49,6 @@ export class Game {
     this.floor.draw();
     this.ladder.draw();
     this.floorCounter.draw();
-    this.chest.draw();
     this.player.draw();
     this.doAction();
   }
