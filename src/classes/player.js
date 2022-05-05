@@ -151,7 +151,8 @@ export class Player extends Actor {
         break;
 
       case "ambar":
-        this.attackSpeed += 1;
+        this.attackSpeed += 2;
+        this.bow.frames.hold -= 2;
         break;
 
       case "saphire":
